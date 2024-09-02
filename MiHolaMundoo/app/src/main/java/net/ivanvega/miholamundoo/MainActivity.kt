@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
@@ -39,13 +41,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Onboardingscreen( modifier: Modifier = Modifier ){
-    val sholudShowOnBoarding = remember {
-        mutableStateOf(true)
+fun  Greetings(modifier: Modifier = Modifier,
+               names : List<String> = List(1000,  init = {  "$it"  })
+               ){
+
+    LazyColumn {
+        items(items = names){ indice ->
+            Greeting(name = indice)
+        }
     }
+
+}
+
+@Composable
+fun Onboardingscreen( modifier: Modifier = Modifier,
+                      onContinueClick : () -> Unit
+                      ){
+
     Column {
         Text(text = "Welcome to the basics compose" )
-        Button(onClick = { sholudShowOnBoarding.value = false }) {
+        Button(onClick = onContinueClick) {
             Text(text = "Continue")
         }
     }
@@ -55,24 +70,33 @@ fun Onboardingscreen( modifier: Modifier = Modifier ){
 @Composable
 fun PreviewOnboardingscreen(){
     MiHolaMundooTheme {
-        Onboardingscreen()
+        //Onboardingscreen()
     }
 }
 
 @Composable
 fun MyApp(modifier: Modifier =  Modifier,
-          names : List<String> = listOf("Mundo","Android", "Compose")
+          names : List<String> = listOf("Mundo","Android", "Compose", "Mundo","Android", "Compose","Mundo","Android", "Compose","Mundo","Android", "Compose")
 ){
+    val sholudShowOnBoarding: MutableState<Boolean> = remember {
+        mutableStateOf(true)
+    }
     Surface (
         color = MaterialTheme.colorScheme.background,
         modifier = modifier
     ) {
 
-        Column (modifier = modifier.padding(vertical = 4.dp)) {
-            for (  name in names  ){
-                Greeting(name = name)
-            }
+        if (sholudShowOnBoarding.value){
+            Onboardingscreen(onContinueClick = { sholudShowOnBoarding.value = false })
+        }else{
+            /*Column (modifier = modifier.padding(vertical = 4.dp)) {
+                for (  name in names  ){
+                    Greeting(name = name)
+                }
+            }*/
+            Greetings()
         }
+
     }
 
 }
