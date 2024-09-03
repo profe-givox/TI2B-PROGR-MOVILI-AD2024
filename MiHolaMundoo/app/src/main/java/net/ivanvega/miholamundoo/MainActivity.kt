@@ -1,6 +1,7 @@
 package net.ivanvega.miholamundoo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -21,13 +22,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.ivanvega.miholamundoo.ui.theme.MiHolaMundooTheme
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,8 +37,38 @@ class MainActivity : ComponentActivity() {
                 MyApp( modifier = Modifier.fillMaxSize())
             }
         }
+        Log.d("ciclovida", "Paso por onCretate")
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d("ciclovida", "Paso por onStart")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("ciclovida", "Paso por onPause")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("ciclovida", "Paso por onResume")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("ciclovida", "Paso por onStop")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("ciclovida", "Paso por onRestart")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("ciclovida", "Paso por onDestroy")
+    }
 }
 
 @Composable
@@ -78,7 +109,7 @@ fun PreviewOnboardingscreen(){
 fun MyApp(modifier: Modifier =  Modifier,
           names : List<String> = listOf("Mundo","Android", "Compose", "Mundo","Android", "Compose","Mundo","Android", "Compose","Mundo","Android", "Compose")
 ){
-    val sholudShowOnBoarding: MutableState<Boolean> = remember {
+    val sholudShowOnBoarding: MutableState<Boolean> = rememberSaveable {
         mutableStateOf(true)
     }
     Surface (
