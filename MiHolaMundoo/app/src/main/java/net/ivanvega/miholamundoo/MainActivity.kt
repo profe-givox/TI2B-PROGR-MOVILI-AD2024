@@ -103,8 +103,8 @@ fun  Greetings(modifier: Modifier = Modifier,
 fun Onboardingscreen( modifier: Modifier = Modifier,
                       onContinueClick : () -> Unit
                       ){
-    Column {
-        Text(text = "Welcome to the basics compose" )
+    Column (modifier = Modifier.padding(top = 48.dp)) {
+        Text(text = stringResource(R.string.welcome_to_the_basics_compose) )
         Button(onClick = onContinueClick) {
             Text(text = "Continue")
         }

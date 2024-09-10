@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mi Hola Mundoo</string>
+    <string name="show_less">Mostras menos</string>
+    <string name="show_more">Mostrar mas</string>
+
+
+
+    <string name="welcome_to_the_basics_compose">Bienvenido a Compose básico</string>
+</resources>
