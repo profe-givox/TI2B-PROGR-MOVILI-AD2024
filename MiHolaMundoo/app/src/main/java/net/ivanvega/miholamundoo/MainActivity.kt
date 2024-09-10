@@ -1,5 +1,6 @@
 package net.ivanvega.miholamundoo
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -17,8 +18,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -30,6 +36,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.coerceAtLeast
@@ -148,9 +155,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     var expanded = remember {
          mutableStateOf(false)
     }
-
-
-
     val extraPadding by
         /*animateDpAsState(
             targetValue = if (expanded.value) 48.dp else 0.dp,
@@ -163,7 +167,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         animationSpec = tween(durationMillis = 1000, 500, FastOutLinearInEasing)
 
     )
-
     Surface (color = MaterialTheme .colorScheme.primary
         , modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
     ) {
@@ -183,20 +186,40 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                             fontWeight = FontWeight.ExtraBold
                         )
                 )
+                if(expanded.value){
+                    Text(text = (" COmposer ipsum color sit lazy, " +
+                                    "pading theme elit. sed do buncy".repeat(4)
+                            )
+                    )
+                }
             }
-            ElevatedButton(onClick =
+            val contentDescription = if (expanded.value) stringResource(R.string.show_less) else stringResource(
+                R.string.show_more
+            )
+            IconButton(onClick = { expanded.value = !expanded.value }) {
+                Icon(imageVector = if (expanded.value)  Icons.Filled.ExpandLess else Icons.Filled.ExpandMore  ,
+                    contentDescription = contentDescription)
+            }
+            /*ElevatedButton(onClick =
                 {  expanded.value = !expanded.value   }
             ) {
                 Text(text =  if (expanded.value) "Show less" else "Show more"   )
-            }
+            }*/
         }
     }
 }
 
-@Preview(showBackground = true)
+
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    name = "Greeetings Obscuro"
+)
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun GreetingPreview() {
     MiHolaMundooTheme {
-        MyApp()
+        Greetings()
     }
 }
