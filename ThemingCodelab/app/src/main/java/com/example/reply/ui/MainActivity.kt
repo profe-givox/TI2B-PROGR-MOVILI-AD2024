@@ -29,6 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.reply.data.LocalEmailsDataProvider
 
 
+
+//mi conentarp
 class MainActivity : ComponentActivity() {
 
     private val viewModel: ReplyHomeViewModel by viewModels()
