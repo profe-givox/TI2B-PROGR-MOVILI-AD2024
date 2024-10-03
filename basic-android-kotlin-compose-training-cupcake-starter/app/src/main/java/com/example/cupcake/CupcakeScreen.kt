@@ -40,6 +40,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cupcake.data.DataSource
+import com.example.cupcake.ui.OrderSummaryScreen
 import com.example.cupcake.ui.OrderViewModel
 import com.example.cupcake.ui.SelectOptionScreen
 import com.example.cupcake.ui.StartOrderScreen
@@ -104,6 +105,7 @@ fun CupcakeApp(
 
                 StartOrderScreen(
                     quantityOptions = DataSource.quantityOptions,
+                    onNextButtonClicked = {},
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(dimensionResource(R.dimen.padding_medium))
@@ -119,6 +121,22 @@ fun CupcakeApp(
                     modifier = Modifier.fillMaxHeight()
                 )
             }
+
+            composable(CupcakeScreen.Pickup.name){
+                SelectOptionScreen(subtotal = uiState.price,
+                    options =  uiState.pickupOptions,
+                    onSelectionChanged = {viewModel.setFlavor(it)},
+                    modifier = Modifier.fillMaxHeight()
+                )
+            }
+
+            composable(CupcakeScreen.Summary.name){
+                OrderSummaryScreen(orderUiState = uiState,
+                    modifier = Modifier.fillMaxHeight(),
+                    onCancelButtonClicked = {}, onSendButtonClicked = { it1, it2 -> }
+                    )
+            }
+
         }
 
     }
